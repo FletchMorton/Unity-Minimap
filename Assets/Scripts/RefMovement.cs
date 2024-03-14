@@ -4,7 +4,7 @@ public class RefMovement : MonoBehaviour
 {
     //Public Variables
     public Transform playerPos;
-    public GameObject mapRatio;
+    public GameObject SpawnManager;
     public Vector3 ratio;
 
     //Private Variables
@@ -15,7 +15,7 @@ public class RefMovement : MonoBehaviour
     void Start()
     {
         //Set the map ratio
-        ratio = mapRatio.GetComponent<MapRatio>().minimapRatio;
+        ratio = SpawnManager.GetComponent<SpawnScript>().minimapRatio;
         
         //Calculate where the player reference is on screen with respect to the player
         camDisplacement = playerPos.position - transform.position;
