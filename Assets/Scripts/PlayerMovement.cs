@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
         
         }
 
-        //Move player
         body.velocity = input * speed;
     }
 
