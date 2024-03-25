@@ -9,17 +9,10 @@ public class RefMovement : MonoBehaviour
 
     //Private Variables
     private Vector3 oldPlayerPos;
-    private Vector3 camDisplacement;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Set the map ratio
-        ratio = SpawnManager.GetComponent<SpawnScript>().minimapRatio;
-        
-        //Calculate where the player reference is on screen with respect to the player
-        camDisplacement = playerPos.position - transform.position;
-
         //Initialize player position
         oldPlayerPos = playerPos.position;
     }
@@ -27,11 +20,11 @@ public class RefMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Variables
-        var playerDis = playerPos.position - oldPlayerPos;
+        //Update ratio if UI scale changed
+        ratio = SpawnManager.GetComponent<SpawnScript>().minimapRatio;
 
-        //Align player icon on screen
-        transform.position = playerPos.position - camDisplacement;
+        //Calculat6e player displacement
+        var playerDis = playerPos.position - oldPlayerPos;
 
         //If the player moved, move the icon with respect to ratio scaling
         if(oldPlayerPos != playerPos.position) {
@@ -40,7 +33,6 @@ public class RefMovement : MonoBehaviour
 
         //Update positions
         oldPlayerPos = playerPos.position;
-        camDisplacement = playerPos.position - transform.position;
         
     }
 

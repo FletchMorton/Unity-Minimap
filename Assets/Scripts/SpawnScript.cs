@@ -9,44 +9,34 @@ public class SpawnScript : MonoBehaviour
     public Transform spawn;
 
     //Minimap References
-    public Transform ref_top_edge;
-    public Transform ref_bottom_edge;
-    public Transform ref_player;
+    public RectTransform ref_top_edge;
+    public RectTransform ref_bottom_edge;
+    public RectTransform ref_player;
 
     //Variables
     public Vector3 minimapRatio;
-    public Vector3 bottom_distance;
-    public Vector3 top_distance;
     public Vector3 player_vector;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //Initialize positions
+        player.position = spawn.position;
+        ref_player.position = ref_bottom_edge.position;
+        
         CalculateRatio();
 
-        //Get distacne vectors to trackers
-        bottom_distance = player.position - ref_bottom_edge.position;
-        top_distance = player.position - ref_top_edge.position;
-
-        //Reposition player
-        player.position = spawn.position;
-
-        //Reposition minimap
-        ref_bottom_edge.position = player.position - bottom_distance;
-        ref_top_edge.position = player.position - top_distance;
-
-        //Reposition player pointer
+        //Align player on minimap
         player_vector = player.position - real_bottom_edge.position;
-        ref_player.position = ref_bottom_edge.position + new Vector3(player_vector.x * minimapRatio.x, player_vector.y * minimapRatio.y, 0);
-
-
+        ref_player.position += new Vector3(player_vector.x * minimapRatio.x, player_vector.y * minimapRatio.y, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //Recalculate map ratio in case UI scale was changed
+        CalculateRatio();
     }
 
     
